@@ -1,0 +1,78 @@
+### GET request with a header
+GET http://localhost:8080/orders
+Accept: application/json
+
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+    });
+
+    client.test("Response content-type is json", function () {
+        const type = response.contentType.mimeType;
+        client.assert(type === "application/json", `Expected 'application/json' but received '${type}'`);
+    });
+%}
+
+### Send POST request with json body
+POST http://localhost:8080/orders
+Content-Type: application/json
+
+{
+  "cliente": "Pericles Reis",
+  "vendedor": "Donald Trump",
+  "produto": "38",
+  "quantidade": 5,
+  "preco_unitario": 1.00,
+  "preco_total": 5.00,
+  "status_pedido": "Pago",
+  "data_entrega": "2017-05-02"
+}
+
+> {%
+    client.test("Request executed error", function () {
+        client.assert(response.status === 500, "Response status is not 500");
+    });
+%}
+
+### Simple Query over HTTP
+// We just write a GraphQL query in the request body
+GRAPHQL http://localhost:8081/query
+
+query findall {
+    FindAll {
+        pedidoID
+        vendedor
+        cliente
+        quantidade
+        precoUnitario
+        precoTotal
+        statusPedido
+        dataEntrega
+    }
+}
+
+### Queries over WebSocket
+// If server supports WebSocket for GraphQL, we can use it for sending requests via WebSocket
+GRAPHQL http://localhost:8081/query
+
+mutation createOrder {
+    createOrder(input : {
+        vendedor:"Paulo Maluf",
+        cliente:"Marta Suplicy",
+        produto: "Santinho de campanha",
+        quantidade: 20000
+        precoUnitario: 0.10,
+        statusPedido: "Aguardando Pagamento",
+        dataEntrega: "2024-07-21"
+    }) {
+        pedidoID
+        cliente
+        vendedor
+        produto
+        quantidade
+        precoUnitario
+        precoTotal
+        statusPedido
+        dataEntrega
+    }
+}

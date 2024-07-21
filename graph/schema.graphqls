@@ -1,0 +1,33 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+
+type Order {
+  pedidoID:      ID!
+  cliente:       String
+  vendedor:      String
+  produto:       String
+  quantidade:    Int
+  precoUnitario: Float
+  precoTotal:    Float
+  statusPedido:  String
+  dataEntrega:   String
+}
+
+type Query {
+  FindAll: [Order!]!
+}
+
+input NewOrder {
+  cliente:       String!
+  vendedor:      String!
+  produto:       String!
+  quantidade:    Int
+  precoUnitario: Float
+  statusPedido:  String
+  dataEntrega:   String
+}
+
+type Mutation {
+  createOrder(input: NewOrder!): Order!
+}
