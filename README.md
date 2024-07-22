@@ -24,17 +24,17 @@ Inclua um README.md com os passos a serem executados no desafio e a porta em que
 
 2. Iniciar os Servicos
 
-   ### Endpoint REST (GET /order)
+   ### Endpoint REST (GET /order) PORT 8080
     ```
     go run cmd/api/main.go
     ```
 
-   ### Query ListOrders GraphQL
+   ### Query ListOrders GraphQL PORT 8081
     ```
     go run cmd/graphql/main.go
     ```
 
-   ### Service ListOrders com GRPC
+   ### Service ListOrders com GRPC PORT 50051
     ```
     go run cmd/grpc/main.go
     ```
